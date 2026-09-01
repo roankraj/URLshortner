@@ -1,7 +1,7 @@
 import { easeOut, motion, AnimatePresence } from 'motion/react';
 import { useState } from 'react';
 
-const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000/';
+const API_URL = import.meta.env.VITE_API_URL || 'http://127.0.0.1:8000';
 
 function App() {
   const [data, setData] = useState(null);
@@ -94,20 +94,20 @@ function App() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ ease: easeOut }}
-            class="flex gap-2"
+            className="flex gap-2"
             role="status"
             aria-label="Loading"
           >
             <span
-              class="size-3 animate-pulse rounded-full bg-[#5757FF]"
+              className="size-3 animate-pulse rounded-full bg-[#5757FF]"
               aria-hidden="true"
             ></span>
             <span
-              class="size-3 animate-pulse rounded-full bg-[#5757FF] [animation-delay:0.2s]"
+              className="size-3 animate-pulse rounded-full bg-[#5757FF] [animation-delay:0.2s]"
               aria-hidden="true"
             ></span>
             <span
-              class="size-3 animate-pulse rounded-full bg-[#5757FF] [animation-delay:0.4s]"
+              className="size-3 animate-pulse rounded-full bg-[#5757FF] [animation-delay:0.4s]"
               aria-hidden="true"
             ></span>
           </motion.div>
