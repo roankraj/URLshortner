@@ -49,7 +49,7 @@ app.get('/health', (req, res) => {
   res.status(200).json({ status: 'ok' });
 });
 
-app.use('/api/v1', apiRouter);
+app.use('/', apiRouter);
 
 app.use((err, req, res, next) => {
   const status = err.status || 500;
