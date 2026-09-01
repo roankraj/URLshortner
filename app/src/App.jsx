@@ -141,7 +141,7 @@ function App() {
             <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
             <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
           </motion.svg>
-          <pre className="font-bold text-xl text-center">{`http://127.0.0.1:8000/api/v1/${data.data.short}`}</pre>
+          <pre className="font-bold text-xl text-center">{`${API_URL}/${data.data.short}`}</pre>
           <AnimatePresence>
             {isCopied && (
               <motion.span
