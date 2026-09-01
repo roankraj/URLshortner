@@ -23,7 +23,7 @@ const limiter = rateLimit({
   message: { status: 'error', message: 'Too many requests. Try again later.' },
 });
 
-app.use('/api/v1', limiter);
+app.use('/', limiter);
 
 const allowedOrigins = [
   'http://localhost:5173',
