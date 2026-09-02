@@ -17,12 +17,16 @@ function App() {
 
     try {
       const params = new URLSearchParams({ url: URL });
+
       const response = await fetch(`${API_URL}?${params}`, {
         method: 'POST',
       });
+
       const Data = await response.json();
 
-      if (!response.ok) throw new Error(Data.message);
+      if (!response.ok) {
+        throw new Error(Data.message);
+      }
 
       setData(Data);
     } catch (err) {
@@ -37,6 +41,7 @@ function App() {
   const handleCopyClick = async () => {
     try {
       await navigator.clipboard.writeText(`${API_URL}/${data.data.short}`);
+
       setIsCopied(true);
 
       setTimeout(() => {
@@ -48,30 +53,99 @@ function App() {
   };
 
   return (
-    <div className="bg-[#FFF4F4] font-[Arial] min-h-screen w-full flex flex-col items-center text-base relative">
-      <h1 className="text-[#5757FF] font-bold text-4xl mb-6 mt-42">
+    <div
+      className="
+        min-h-screen
+        w-full
+        flex
+        flex-col
+        items-center
+        bg-[#FFF4F4]
+        px-4
+        pt-40
+        font-[Arial]
+        text-base
+        sm:pt-48
+        md:pt-52
+      "
+    >
+      {/* Heading */}
+      <h1
+        className="
+          mb-6
+          text-center
+          text-3xl
+          font-bold
+          text-[#5757FF]
+          sm:text-4xl
+        "
+      >
         URL Shortner
       </h1>
 
-      <form className="flex gap-7 mb-11" onSubmit={getURL}>
-        <input
-          type="text"
-          onChange={(e) => setURL(e.target.value)}
-          value={URL}
-          placeholder="Enter the link here"
-          className="w-123 h-11 rounded-full placeholder:text-white placeholder:text-base bg-[#8C8573] pl-5 py-3 text-white focus:outline-[#222222]"
-        />
-        <motion.button
-          whileHover={{ scale: 1.02, y: -2 }}
-          whileTap={{ scale: 0.97, y: 1 }}
-          transition={{ type: 'spring', stiffness: 150, damping: 15 }}
-          type="submit"
-          className="font-semibold text-white bg-[#2222FF] py-3 px-5 rounded-full hover:cursor-pointer focus:outline-[#222222]"
-          disabled={loading}
+      {/* Form + Error */}
+      <div className="mb-8 w-full max-w-2xl">
+        <form
+          className="
+            flex
+            w-full
+            flex-col
+            gap-3
+            sm:flex-row
+            sm:gap-5
+          "
+          onSubmit={getURL}
         >
-          Shorten URL
-        </motion.button>
+          <input
+            type="text"
+            onChange={(e) => setURL(e.target.value)}
+            value={URL}
+            placeholder="Enter the link here"
+            className="
+              h-11
+              w-full
+              min-w-0
+              rounded-full
+              bg-[#8C8573]
+              px-5
+              py-3
+              text-white
+              placeholder:text-base
+              placeholder:text-white
+              focus:outline-[#222222]
+              sm:flex-1
+            "
+          />
 
+          <motion.button
+            whileHover={{ scale: 1.02, y: -2 }}
+            whileTap={{ scale: 0.97, y: 1 }}
+            transition={{
+              type: 'spring',
+              stiffness: 150,
+              damping: 15,
+            }}
+            type="submit"
+            disabled={loading}
+            className="
+              h-11
+              shrink-0
+              rounded-full
+              bg-[#2222FF]
+              px-5
+              font-semibold
+              text-white
+              cursor-pointer
+              focus:outline-[#222222]
+              disabled:cursor-not-allowed
+              disabled:opacity-70
+            "
+          >
+            Shorten URL
+          </motion.button>
+        </form>
+
+        {/* Error */}
         <AnimatePresence>
           {error && (
             <motion.p
@@ -79,14 +153,21 @@ function App() {
               animate={{ opacity: 1, y: 0 }}
               exit={{ opacity: 0, y: -5 }}
               transition={{ ease: easeOut }}
-              className="top-74 right-145 font-bold text-red-700 absolute"
+              className="
+                mt-2
+                px-2
+                text-sm
+                font-bold
+                text-red-700
+              "
             >
               {error}
             </motion.p>
           )}
         </AnimatePresence>
-      </form>
+      </div>
 
+      {/* Loading */}
       {loading ? (
         <AnimatePresence>
           <motion.div
@@ -99,64 +180,119 @@ function App() {
             aria-label="Loading"
           >
             <span
-              className="size-3 animate-pulse rounded-full bg-[#5757FF]"
+              className="
+                size-3
+                animate-pulse
+                rounded-full
+                bg-[#5757FF]
+              "
               aria-hidden="true"
-            ></span>
+            />
+
             <span
-              className="size-3 animate-pulse rounded-full bg-[#5757FF] [animation-delay:0.2s]"
+              className="
+                size-3
+                animate-pulse
+                rounded-full
+                bg-[#5757FF]
+                [animation-delay:0.2s]
+              "
               aria-hidden="true"
-            ></span>
+            />
+
             <span
-              className="size-3 animate-pulse rounded-full bg-[#5757FF] [animation-delay:0.4s]"
+              className="
+                size-3
+                animate-pulse
+                rounded-full
+                bg-[#5757FF]
+                [animation-delay:0.4s]
+              "
               aria-hidden="true"
-            ></span>
+            />
           </motion.div>
         </AnimatePresence>
       ) : data ? (
+        /* Result */
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
-          transition={{
-            ease: easeOut,
-          }}
-          className="flex gap-4 relative"
+          transition={{ ease: easeOut }}
+          className="
+            flex
+            w-full
+            max-w-2xl
+            items-center
+            gap-3
+            px-2
+          "
         >
-          <motion.svg
-            xmlns="http://www.w3.org/2000/svg"
-            width="24"
-            height="24"
-            viewBox="0 0 24 24"
-            fill="none"
-            stroke="currentColor"
-            stroke-width="2"
-            stroke-linecap="round"
-            stroke-linejoin="round"
-            class="lucide lucide-copy-icon lucide-copy"
-            onClick={handleCopyClick}
-            className="hover:cursor-pointer"
-            whileHover={{ scale: 1.05 }}
-            whileTap={{ scale: 0.96 }}
-            transition={{ type: 'spring', stiffness: 150, damping: 15 }}
+          {/* Copy button + Copied text */}
+          <div className="relative flex shrink-0 items-center">
+            <motion.svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="24"
+              height="24"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              onClick={handleCopyClick}
+              className="cursor-pointer"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.96 }}
+              transition={{
+                type: 'spring',
+                stiffness: 150,
+                damping: 15,
+              }}
+            >
+              <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
+
+              <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
+            </motion.svg>
+
+            {/* Copied */}
+            <AnimatePresence>
+              {isCopied && (
+                <motion.span
+                  initial={{ opacity: 0, y: 5 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: 5 }}
+                  transition={{ ease: easeOut }}
+                  className="
+                    absolute
+                    bottom-full
+                    left-1/2
+                    mb-2
+                    -translate-x-1/2
+                    whitespace-nowrap
+                    text-sm
+                    font-semibold
+                    text-blue-700
+                  "
+                >
+                  Copied
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* Short URL */}
+          <span
+            className="
+              min-w-0
+              break-all
+              text-sm
+              font-bold
+              sm:text-lg
+              md:text-xl
+            "
           >
-            <rect width="14" height="14" x="8" y="8" rx="2" ry="2" />
-            <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
-          </motion.svg>
-          <pre className="font-bold text-xl text-center">{`${API_URL}/${data.data.short}`}</pre>
-          <AnimatePresence>
-            {isCopied && (
-              <motion.span
-                initial={{ opacity: 0, y: 4 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: 4 }}
-                transition={{
-                  ease: easeOut,
-                }}
-                className="absolute bottom-6 right-114 rotate-315 font-semibold text-blue-700"
-              >
-                Copied
-              </motion.span>
-            )}
-          </AnimatePresence>
+            {`${API_URL}/${data.data.short}`}
+          </span>
         </motion.div>
       ) : null}
     </div>
