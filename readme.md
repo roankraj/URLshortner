@@ -148,4 +148,6 @@ npm run dev
 
 This project was built using the MERN stack and deployed with Render.
 
+**Live:** [urlshortner-1-2y7m.onrender.com](https://urlshortner-1-2y7m.onrender.com/) _(may not be live — see note below)_
+
 > **Heads up:** the backend will be taken offline in the next few days. Right now there's no check in place to catch malicious or phishing URLs before they're shortened, so leaving the API publicly reachable isn't safe long-term. That kind of protection (URL reputation / safe-browsing checks) is planned for a future update — once it's in, the backend will go back up.
