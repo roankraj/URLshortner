@@ -2,7 +2,7 @@
 
 A full-stack URL shortener built with the MERN stack. Paste in a long link, get back a short, shareable one — click it, and you're redirected to the original destination.
 
-![Demo](app\src\assets\url-project-demo.gif)
+![Demo](app/src/assets/url-project-demo.gif)
 
 ## Features
 
