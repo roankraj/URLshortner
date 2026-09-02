@@ -32,6 +32,10 @@ function App() {
     } catch (err) {
       setData(null);
       setError(err.message);
+
+      setTimeout(() => {
+        setError('');
+      }, 2000);
     } finally {
       setLoading(false);
       setURL('');
@@ -49,6 +53,10 @@ function App() {
       }, 2000);
     } catch (err) {
       setError(err.message);
+
+      setTimeout(() => {
+        setError('');
+      }, 2000);
     }
   };
 
@@ -69,7 +77,6 @@ function App() {
         md:pt-52
       "
     >
-      {/* Heading */}
       <h1
         className="
           mb-6
@@ -83,8 +90,7 @@ function App() {
         URL Shortner
       </h1>
 
-      {/* Form + Error */}
-      <div className="mb-8 w-full max-w-2xl">
+      <div className="relative mb-8 w-full max-w-2xl">
         <form
           className="
             flex
@@ -145,17 +151,20 @@ function App() {
           </motion.button>
         </form>
 
-        {/* Error */}
         <AnimatePresence>
           {error && (
             <motion.p
-              initial={{ opacity: 0, y: -5 }}
+              initial={{ opacity: 0, y: -8 }}
               animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -5 }}
+              exit={{ opacity: 0, y: -8 }}
               transition={{ ease: easeOut }}
               className="
+                absolute
+                left-0
+                right-0
+                top-full
                 mt-2
-                px-2
+                text-center
                 text-sm
                 font-bold
                 text-red-700
@@ -167,7 +176,6 @@ function App() {
         </AnimatePresence>
       </div>
 
-      {/* Loading */}
       {loading ? (
         <AnimatePresence>
           <motion.div
@@ -213,21 +221,19 @@ function App() {
           </motion.div>
         </AnimatePresence>
       ) : data ? (
-        /* Result */
         <motion.div
           initial={{ opacity: 0, scale: 0.9 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ ease: easeOut }}
           className="
             flex
-            w-full
             max-w-2xl
             items-center
+            justify-center
             gap-3
             px-2
           "
         >
-          {/* Copy button + Copied text */}
           <div className="relative flex shrink-0 items-center">
             <motion.svg
               xmlns="http://www.w3.org/2000/svg"
@@ -254,7 +260,6 @@ function App() {
               <path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" />
             </motion.svg>
 
-            {/* Copied */}
             <AnimatePresence>
               {isCopied && (
                 <motion.span
@@ -280,11 +285,11 @@ function App() {
             </AnimatePresence>
           </div>
 
-          {/* Short URL */}
           <span
             className="
               min-w-0
               break-all
+              text-center
               text-sm
               font-bold
               sm:text-lg
