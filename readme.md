@@ -4,6 +4,12 @@ A full-stack URL shortener built with the MERN stack. Paste in a long link, get 
 
 ![Demo](app/src/assets/url-project-demo.gif)
 
+## Deployment / Live Demo
+
+This project was built using the MERN stack and deployed with Render.
+
+**Live:** [urlshortner-1-2y7m.onrender.com](https://urlshortner-1-2y7m.onrender.com/)
+
 ## Features
 
 - Shorten any valid `http`/`https` URL into a compact link
@@ -145,11 +151,3 @@ npm run dev
 - Requests are rate-limited to 100 per hour per client
 - CORS is restricted to an allow-list of origins
 - `helmet` and `hpp` add baseline protection against common HTTP-level attacks
-
-## Deployment / Live Demo
-
-This project was built using the MERN stack and deployed with Render.
-
-**Live:** [urlshortner-1-2y7m.onrender.com](https://urlshortner-1-2y7m.onrender.com/) _(may not be live — see note below)_
-
-> **Heads up:** the backend will be taken offline in the next few days. Right now there's no check in place to catch malicious or phishing URLs before they're shortened, so leaving the API publicly reachable isn't safe long-term. That kind of protection (URL reputation / safe-browsing checks) is planned for a future update — once it's in, the backend will go back up.
