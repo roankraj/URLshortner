@@ -106,7 +106,7 @@ function App() {
             type="text"
             onChange={(e) => setURL(e.target.value)}
             value={URL}
-            placeholder="Enter the link here"
+            placeholder="https://example.com"
             className="
               h-11
               w-full
